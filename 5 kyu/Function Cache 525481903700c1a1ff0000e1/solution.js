@@ -18,6 +18,7 @@ function cache(func) {
 }
 
 // Tests
+const arrayShallowEquals = require('../../helpers/js/arrayshallowequals');
 console.log('Running given sample tests; no further output indicates success');
 
 var complexFunctionCalls = 0;
@@ -68,14 +69,6 @@ var getAllKeys = cache(function (obj1, obj2) {
 
 var obj1 = { foo: 'foo', bar: 'bar' };
 var obj2 = { baz: 'baz' };
-
-function arrayShallowEquals(arr1, arr2) {
-  if (arr1.length !== arr2.length) return false;
-  for (let i in arr1) {
-    if (arr1[i] !== arr2[i]) return false;
-  }
-  return true;
-}
 
 console.assert(arrayShallowEquals(getAllKeys(obj1, obj2), ['foo', 'bar', 'baz']), 'Cached function did not return the correct result');
 console.assert(complexFunctionCalls == 1, 'The inner function wasn\'t called');
