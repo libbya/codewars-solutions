@@ -8,6 +8,16 @@ Each kata has its own folder, found at `~/{#} kyu/{name of kata} {kata url slug}
 ## Run solutions locally
 Each solution file will automatically execute a set of tests taken from Codewars at the time the solution was created or modified.
 #### JavaScript
-from the directory of a single kata, run:
-> ```> node solution.js```
-* note that solutions are made for the codewars runner which uses node 8.x
+From the directory of a single kata, run:
+```bash
+node solution.js
+```
+Note that unless otherwise specified, solutions are made for the codewars runner which uses node 8.x
+#### C
+C solutions can be compiled using gcc
+From the directory of a single kata, run:
+```bash
+gcc solution.c
+./a.out
+```
+Other compilers can also be used, provided that they are able to link the requisite header files.
