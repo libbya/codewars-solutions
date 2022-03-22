@@ -28,7 +28,10 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run readme generation script
-        run: node populate-solution-docs.js
+        run: |
+          NNEWFILES=$(node populate-solution-docs.js | wc -l)
+          echo "::set-output name=nnewfiles::$(echo $NNEWFILES)"
+        id: genreadme
 
       # Commit local changes
       - name: Commit files
@@ -37,9 +40,11 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git add .
           git commit -m "Generate READMEs for new solutions" -a
+        if: steps.genreadme.outputs.nnewfiles > 0
           
       # Push local changes
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+        if: steps.genreadme.outputs.nnewfiles > 0
